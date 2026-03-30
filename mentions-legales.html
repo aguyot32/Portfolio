@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentions Légales - Antoine GUYOT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #170f2e;
+            --nav-bg: rgba(23, 15, 46, 0.85);
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            
+            --pop-pink: #ff2a85;
+            --pop-cyan: #00e5ff;
+            --pop-yellow: #ffdf00;
+            --pop-purple: #8a2be2;
+            
+            --card-bg: #221742;
+            --card-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode {
+            --bg-color: #fcf8ff;
+            --nav-bg: rgba(252, 248, 255, 0.85);
+            --text-main: #1e1b4b;
+            --text-muted: #475569;
+            --card-bg: #ffffff;
+            --card-border: rgba(0, 0, 0, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.4s;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        :lang(fr) .en { display: none !important; }
+        :lang(en) .fr { display: none !important; }
+
+        .bg-shapes { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden; }
+        .shape { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: float 10s infinite ease-in-out alternate; }
+        .shape-1 { width: 300px; height: 300px; background: var(--pop-purple); top: 10%; left: -5%; }
+        .shape-2 { width: 400px; height: 400px; background: var(--pop-pink); bottom: -10%; right: -5%; animation-delay: -3s; }
+
+        @keyframes float { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(40px) scale(1.1); } }
+
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 15px 5%;
+            background: var(--nav-bg); backdrop-filter: blur(12px);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; border-bottom: 2px solid var(--card-border);
+        }
+        
+        .nav-left, .nav-right { display: flex; align-items: center; gap: 25px; }
+
+        .brand-name {
+            font-family: 'Quicksand', sans-serif; font-size: 1.8rem; font-weight: 800;
+            color: var(--pop-pink); text-decoration: none;
+            transition: transform 0.2s, color 0.2s; letter-spacing: -1px;
+        }
+        .brand-name:hover { transform: scale(1.05) rotate(-2deg); color: var(--pop-yellow); }
+
+        .icon-btn {
+            background: var(--card-bg); border: 2px solid var(--text-main); color: var(--text-main);
+            padding: 8px 16px; border-radius: 30px; cursor: pointer; font-family: inherit; font-weight: 700;
+            box-shadow: 3px 3px 0px var(--text-main); transition: all 0.2s; text-decoration: none; display: inline-block;
+        }
+        .icon-btn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0px var(--pop-yellow); }
+        .icon-btn:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px transparent; }
+
+        .legal-container {
+            width: 90%; max-width: 900px; margin: 10rem auto 4rem;
+            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .legal-header { text-align: center; margin-bottom: 3rem; }
+        .legal-header h1 {
+            font-family: 'Quicksand', sans-serif; font-size: 3rem; margin-bottom: 1rem; font-weight: 800;
+            color: var(--text-main); text-shadow: 4px 4px 0px var(--pop-cyan);
+        }
+
+        .legal-card {
+            background: var(--card-bg); border: 3px solid var(--text-main); border-radius: 24px; padding: 3rem;
+            box-shadow: 8px 8px 0px var(--pop-purple);
+        }
+
+        .legal-section { margin-bottom: 2.5rem; }
+        .legal-section:last-child { margin-bottom: 0; }
+        
+        .legal-section h2 {
+            font-family: 'Quicksand', sans-serif; font-size: 1.5rem; color: var(--pop-pink);
+            margin-bottom: 1rem; font-weight: 700; border-bottom: 2px dashed var(--card-border); padding-bottom: 0.5rem;
+        }
+        
+        .legal-section p, .legal-section ul {
+            color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 1rem;
+        }
+
+        .legal-section ul {
+            padding-left: 1.5rem;
+        }
+
+        .legal-section strong { color: var(--text-main); font-weight: 600; }
+
+        .legal-section a {
+            color: var(--pop-cyan); text-decoration: none; font-weight: 600; transition: color 0.2s;
+        }
+        .legal-section a:hover { color: var(--pop-yellow); text-decoration: underline; }
+
+        footer { text-align: center; padding: 2rem; margin-top: auto; border-top: 4px solid var(--text-main); font-weight: 600; background: var(--card-bg); }
+        footer a { color: var(--pop-pink); text-decoration: none; border-bottom: 2px dashed var(--pop-pink); transition: color 0.2s; }
+        footer a:hover { color: var(--pop-yellow); border-color: var(--pop-yellow); }
+
+        @keyframes popIn { 
+            0% { opacity: 0; transform: scale(0.9) translateY(20px); } 
+            100% { opacity: 1; transform: scale(1) translateY(0); } 
+        }
+
+        @media (max-width: 768px) {
+            .legal-header h1 { font-size: 2.5rem; }
+            .nav-left, .nav-right { flex-direction: column; gap: 10px; align-items: flex-start; }
+            nav { padding: 15px; align-items: flex-start; }
+            .legal-container { margin-top: 14rem; }
+            .legal-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+
+    <nav>
+        <div class="nav-left">
+            <a href="index.html" class="brand-name">Portfolio</a>
+        </div>
+        <div class="nav-right">
+            <button id="lang-toggle" class="icon-btn">
+                <span class="fr">EN</span><span class="en">FR</span>
+            </button>
+            <button id="theme-toggle" class="icon-btn">
+                <span class="fr">☀️ Clair</span><span class="en">☀️ Light</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="legal-container">
+        <div class="legal-header">
+            <h1 class="fr">Mentions Légales</h1>
+            <h1 class="en">Legal Notice</h1>
+        </div>
+
+        <div class="legal-card">
+            
+            <div class="legal-section">
+                <h2 class="fr">1. Éditeur du site</h2>
+                <h2 class="en">1. Site Publisher</h2>
+                
+                <div class="fr">
+                    <p>Le présent site est édité par :</p>
+                    <p>
+                        <strong>Antoine GUYOT</strong><br>
+                        Étudiant en BUT Informatique<br>
+                        Code postal : 51240 (Marne), France<br>
+                        Email : <a href="mailto:guyot.antoine512@gmail.com">guyot.antoine512@gmail.com</a>
+                    </p>
+                    <p>En tant que personne physique réalisant ce site à titre strictement personnel, l'adresse du domicile n'est pas rendue publique conformément à l'article 6, III, 2° de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique (LCEN).</p>
+                </div>
+                <div class="en">
+                    <p>This website is published by:</p>
+                    <p>
+                        <strong>Antoine GUYOT</strong><br>
+                        Computer Science Student<br>
+                        Zip Code: 51240 (Marne), France<br>
+                        Email: <a href="mailto:guyot.antoine512@gmail.com">guyot.antoine512@gmail.com</a>
+                    </p>
+                    <p>As a natural person creating this website strictly for personal use, the residential address is not made public in accordance with Article 6, III, 2° of the French law No. 2004-575 of June 21, 2004, for confidence in the digital economy (LCEN).</p>
+                </div>
+            </div>
+
+            <div class="legal-section">
+                <h2 class="fr">2. Directeur de la publication</h2>
+                <h2 class="en">2. Publication Director</h2>
+                
+                <p class="fr">Le directeur de la publication est <strong>Antoine GUYOT</strong>.</p>
+                <p class="en">The publication director is <strong>Antoine GUYOT</strong>.</p>
+            </div>
+
+            <div class="legal-section">
+                <h2 class="fr">3. Hébergement</h2>
+                <h2 class="en">3. Hosting</h2>
+                
+                <div class="fr">
+                    <p>Ce site internet, ainsi que les projets qui y sont liés (notamment le Pop Quiz Game), sont hébergés par :</p>
+                    <p>
+                        <strong>I.U.T de Reims (Université de Reims Champagne-Ardenne)</strong><br>
+                        Chemin des Rouliers, 51100 Reims, France<br>
+                        Téléphone : +33 (0)3 26 91 30 00
+                    </p>
+                </div>
+                <div class="en">
+                    <p>This website, as well as its related projects (notably the Pop Quiz Game), are hosted by:</p>
+                    <p>
+                        <strong>I.U.T of Reims (University of Reims Champagne-Ardenne)</strong><br>
+                        Chemin des Rouliers, 51100 Reims, France<br>
+                        Phone: +33 (0)3 26 91 30 00
+                    </p>
+                </div>
+            </div>
+
+            <div class="legal-section">
+                <h2 class="fr">4. Propriété intellectuelle</h2>
+                <h2 class="en">4. Intellectual Property</h2>
+                
+                <div class="fr">
+                    <p>L'ensemble du contenu de ce site (textes, images, illustrations, code source, design) est la propriété exclusive d'Antoine GUYOT, à l'exception des marques, logos ou contenus appartenant à d'autres sociétés partenaires ou auteurs (tels que les logos de LinkedIn, Discord, GitHub, etc.).</p>
+                    <p>Toute reproduction, distribution, modification, adaptation, retransmission ou publication, même partielle, de ces différents éléments est strictement interdite sans l'accord exprès par écrit d'Antoine GUYOT.</p>
+                </div>
+                <div class="en">
+                    <p>The entire content of this site (texts, images, illustrations, source code, design) is the exclusive property of Antoine GUYOT, with the exception of trademarks, logos, or content belonging to partner companies or other authors (such as LinkedIn, Discord, and GitHub logos).</p>
+                    <p>Any reproduction, distribution, modification, adaptation, retransmission, or publication, even partial, of these elements is strictly prohibited without the express written consent of Antoine GUYOT.</p>
+                </div>
+            </div>
+
+            <div class="legal-section">
+                <h2 class="fr">5. Données personnelles et Confidentialité</h2>
+                <h2 class="en">5. Personal Data & Privacy Policy</h2>
+                
+                <div class="fr">
+                    <p>De manière générale, vous n’êtes pas tenu de nous communiquer vos données personnelles lorsque vous visitez le site.</p>
+                    <p><strong>Formulaire de contact :</strong> Les données soumises via le formulaire de contact (nom, adresse e-mail, message) sont traitées de manière sécurisée par le service tiers <strong>Formspree</strong>. Ces données sont utilisées uniquement dans le but de répondre à votre demande et ne sont ni vendues, ni cédées à des tiers.</p>
+                    <p><strong>Pop Quiz Game :</strong> Le jeu lié à ce portfolio utilise le <em>Session Storage</em> et le <em>Local Storage</em> de votre navigateur pour sauvegarder vos préférences (nom de joueur, catégories choisies) et vos scores temporaires. Ces données restent en grande partie locales à votre appareil. Si une sauvegarde de score est effectuée vers l'API, seuls le nom saisi, le score et le temps sont conservés à des fins de classement.</p>
+                </div>
+                <div class="en">
+                    <p>Generally, you are not required to provide your personal data when visiting this website.</p>
+                    <p><strong>Contact Form:</strong> The data submitted via the contact form (name, email address, message) is securely processed by the third-party service <strong>Formspree</strong>. This data is used solely to respond to your inquiry and is never sold or transferred to third parties.</p>
+                    <p><strong>Pop Quiz Game:</strong> The game linked to this portfolio uses your browser's <em>Session Storage</em> and <em>Local Storage</em> to save your preferences (player name, chosen categories) and temporary scores. This data remains mostly local to your device. If a score is saved to the API, only the entered name, score, and time are kept for leaderboard purposes.</p>
+                </div>
+            </div>
+
+            <div class="legal-section">
+                <h2 class="fr">6. Liens hypertextes</h2>
+                <h2 class="en">6. Hyperlinks</h2>
+                
+                <p class="fr">Ce site peut contenir des liens hypertextes vers d’autres sites présents sur le réseau Internet. Les liens vers ces autres ressources vous font quitter le présent site. Antoine GUYOT décline toute responsabilité quant au contenu de ces sites tiers.</p>
+                <p class="en">This website may contain hyperlinks to other websites on the Internet. Links to these other resources will cause you to leave this website. Antoine GUYOT declines any responsibility regarding the content or privacy practices of these third-party websites.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p class="fr">© 2026 Antoine GUYOT | <a href="index.html">Retour à l'accueil</a></p>
+        <p class="en">© 2026 Antoine GUYOT | <a href="index.html">Back to Home</a></p>
+    </footer>
+
+    <script>
+        const themeBtn = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('theme');
+        
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            if (themeBtn) themeBtn.innerHTML = '<span class="fr">🌙 Sombre</span><span class="en">🌙 Dark</span>';
+        }
+
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                const isLight = document.body.classList.contains('light-mode');
+                
+                if (isLight) {
+                    localStorage.setItem('theme', 'light');
+                    themeBtn.innerHTML = '<span class="fr">🌙 Sombre</span><span class="en">🌙 Dark</span>';
+                } else {
+                    localStorage.setItem('theme', 'dark');
+                    themeBtn.innerHTML = '<span class="fr">☀️ Clair</span><span class="en">☀️ Light</span>';
+                }
+            });
+        }
+
+        const langBtn = document.getElementById('lang-toggle');
+        const savedLang = localStorage.getItem('lang') || 'fr';
+        
+        document.documentElement.lang = savedLang;
+
+        langBtn.addEventListener('click', () => {
+            const currentLang = document.documentElement.lang;
+            const newLang = currentLang === 'fr' ? 'en' : 'fr';
+            
+            document.documentElement.lang = newLang;
+            localStorage.setItem('lang', newLang);
+        });
+    </script>
+
+</body>
+</html>

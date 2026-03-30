@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Antoine GUYOT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #170f2e;
+            --nav-bg: rgba(23, 15, 46, 0.85);
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            
+            --pop-pink: #ff2a85;
+            --pop-cyan: #00e5ff;
+            --pop-yellow: #ffdf00;
+            --pop-purple: #8a2be2;
+            
+            --card-bg: #221742;
+            --card-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode {
+            --bg-color: #fcf8ff;
+            --nav-bg: rgba(252, 248, 255, 0.85);
+            --text-main: #1e1b4b;
+            --text-muted: #475569;
+            --card-bg: #ffffff;
+            --card-border: rgba(0, 0, 0, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.4s;
+        }
+
+        :lang(fr) .en { display: none !important; }
+        :lang(en) .fr { display: none !important; }
+
+        .bg-shapes { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden; }
+        .shape { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: float 10s infinite ease-in-out alternate; }
+        .shape-1 { width: 300px; height: 300px; background: var(--pop-purple); top: -10%; left: -5%; }
+        .shape-2 { width: 400px; height: 400px; background: var(--pop-pink); bottom: -10%; right: -5%; animation-delay: -3s; }
+
+        @keyframes float { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(40px) scale(1.1); } }
+        @keyframes float-icon { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
+
+        h1, h2, h3, h4 { font-family: 'Quicksand', sans-serif; }
+
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 15px 5%;
+            background: var(--nav-bg); backdrop-filter: blur(12px);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; border-bottom: 2px solid var(--card-border);
+        }
+        
+        .nav-left, .nav-right { display: flex; align-items: center; gap: 25px; }
+
+        .brand-name {
+            font-family: 'Quicksand', sans-serif; font-size: 1.8rem; font-weight: 800;
+            color: var(--pop-pink); text-decoration: none;
+            transition: transform 0.2s, color 0.2s; letter-spacing: -1px;
+        }
+        .brand-name:hover { transform: scale(1.05) rotate(-2deg); color: var(--pop-yellow); }
+
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { 
+            color: var(--text-main); text-decoration: none; font-weight: 600; 
+            position: relative; transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--pop-cyan); }
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 3px; 
+            bottom: -5px; left: 0; background: var(--pop-pink); transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        .icon-btn {
+            background: var(--card-bg); border: 2px solid var(--text-main); color: var(--text-main);
+            padding: 8px 16px; border-radius: 30px; cursor: pointer; font-family: inherit; font-weight: 700;
+            box-shadow: 3px 3px 0px var(--text-main); transition: all 0.2s; text-decoration: none; display: inline-block;
+        }
+        .icon-btn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0px var(--pop-yellow); }
+        .icon-btn:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px transparent; }
+
+        header.hero {
+            padding: 10rem 5% 6rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .hero-container {
+            display: flex; align-items: center; justify-content: space-between; gap: 4rem;
+        }
+
+        .hero-graphic {
+            flex: 1; max-width: 400px;
+            animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .hero-content {
+            flex: 1.4; text-align: left;
+            animation: popIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .hero-content h1 {
+            font-size: 4.8rem; font-weight: 800; line-height: 1.1; margin-bottom: 0.5rem;
+            color: var(--text-main); text-shadow: 4px 4px 0px var(--pop-pink); letter-spacing: -2px;
+        }
+        .hero-content h2 {
+            font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 700; color: var(--pop-cyan); margin-bottom: 1.5rem; line-height: 1.3;
+            white-space: nowrap; 
+        }
+        .hero-content p { 
+            font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem; line-height: 1.8; max-width: 100%;
+        }
+
+        .info-pills { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 3rem; }
+        .pill { 
+            background: var(--bg-color); 
+            color: var(--text-main);
+            padding: 10px 22px; 
+            border-radius: 50px; 
+            font-weight: 700;
+            border: 2px solid;
+            font-size: 0.95rem;
+            display: flex; align-items: center; gap: 8px;
+            animation: wiggle 3s infinite ease-in-out alternate;
+        }
+        .pill:nth-child(1) { border-color: var(--pop-purple); box-shadow: 4px 4px 0px var(--pop-purple); }
+        .pill:nth-child(2) { border-color: var(--pop-cyan); box-shadow: 4px 4px 0px var(--pop-cyan); animation-delay: 0.5s; }
+        .pill:nth-child(3) { border-color: var(--pop-yellow); box-shadow: 4px 4px 0px var(--pop-yellow); animation-delay: 1s; color: var(--text-main); }
+
+        .btn-contact {
+            background: var(--pop-pink); color: #fff; padding: 15px 40px; border-radius: 50px;
+            text-decoration: none; font-size: 1.2rem; font-weight: 700; display: inline-block;
+            border: 3px solid #fff; box-shadow: 6px 6px 0px var(--pop-cyan); transition: all 0.2s;
+        }
+        .btn-contact:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0px var(--pop-yellow); }
+        .btn-contact:active { transform: translate(3px, 3px); box-shadow: 0px 0px 0px transparent; }
+
+        .avatar-base { fill: var(--card-bg); stroke: var(--text-main); stroke-width: 8px; stroke-linejoin: round; stroke-linecap: round; }
+        .avatar-shadow { fill: var(--pop-purple); }
+        .avatar-screen { fill: var(--bg-color); stroke: var(--text-main); stroke-width: 8px; rx: 12px; }
+        .avatar-code { font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 60px; fill: var(--pop-cyan); text-anchor: middle;}
+        .avatar-cursor { animation: blinkCursor 1s step-end infinite; fill: var(--pop-pink); }
+        
+        @keyframes floatShape1 { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(10deg); } }
+        @keyframes floatShape2 { 0%, 100% { transform: translateY(0px) rotate(15deg); } 50% { transform: translateY(-30px) rotate(-5deg); } }
+        @keyframes floatShape3 { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-15px) scale(1.1); } }
+        @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes levitate { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+
+        .shape-pink { animation: floatShape1 4s ease-in-out infinite; transform-origin: center; }
+        .shape-yellow { animation: floatShape2 5s ease-in-out infinite 1s; transform-origin: center; }
+        .shape-cyan { animation: floatShape3 3.5s ease-in-out infinite 0.5s; transform-origin: center; }
+        .computer-group { animation: levitate 6s ease-in-out infinite; transform-origin: center; }
+
+        .container { width: 90%; max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 6rem; }
+        section { scroll-margin-top: 120px; }
+        
+        section h3 { 
+            font-size: 2.5rem; margin-bottom: 3rem; color: var(--text-main); font-weight: 800;
+            display: inline-block; position: relative;
+        }
+        
+        section h3::after {
+            content: ''; position: absolute; bottom: 5px; left: -10px; right: -10px; height: 18px;
+            background: var(--pop-pink); z-index: -1; transform: rotate(-2deg); border-radius: 5px;
+        }
+
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 3rem; } 
+        
+        .card {
+            background: var(--card-bg); border: 3px solid var(--text-main); border-radius: 24px; padding: 2.5rem;
+            box-shadow: 6px 6px 0px var(--pop-purple); transition: all 0.3s; position: relative;
+        }
+        .card:hover { transform: translateY(-5px) rotate(1deg); box-shadow: 10px 10px 0px var(--pop-cyan); }
+        
+        .skills-card { text-align: center; }
+        .skills-icon { font-size: 3.5rem; margin-bottom: 1.5rem; display: block; animation: float-icon 2s infinite ease-in-out alternate; }
+        .skills-card h4 { font-size: 1.4rem; margin-bottom: 1.5rem; font-weight: 700; }
+
+        .project-card { 
+            border-radius: 30px; 
+            display: flex; 
+            flex-direction: column; 
+            padding: 2.5rem; 
+        }
+        .project-card.perso { box-shadow: 6px 6px 0px var(--pop-pink); }
+        .project-card.perso:hover { box-shadow: 10px 10px 0px var(--pop-yellow); transform: translateY(-5px) rotate(-1deg); }
+
+        .project-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card h4 { 
+            display: flex; justify-content: space-between; align-items: center; 
+            flex-wrap: nowrap; 
+            gap: 15px; 
+            margin-bottom: 1.5rem; 
+            font-size: 1.35rem; 
+            font-weight: 800;
+            white-space: nowrap; 
+        }
+        
+        .project-type { 
+            font-size: 0.9rem; padding: 6px 16px; border-radius: 20px; border: 2px solid currentColor; font-weight: 700; background: var(--bg-color);
+            white-space: nowrap; 
+            flex-shrink: 0; 
+        }
+
+        .project-card p { margin-bottom: 3rem; color: var(--text-muted); line-height: 1.8; font-size: 1.05rem; flex-grow: 1; white-space: normal; }
+        
+        .project-footer { display: flex; flex-direction: column; }
+        .project-techs { display: flex; flex-direction: column; gap: 12px; }
+        .project-techs div { font-size: 1rem; color: var(--text-main); }
+        .project-techs strong { color: var(--pop-cyan); font-weight: 700; }
+
+        .btn-project {
+            background: var(--bg-color); color: var(--text-main); text-decoration: none;
+            padding: 10px 20px; border-radius: 15px; font-weight: 700; border: 2px solid var(--text-main);
+            box-shadow: 4px 4px 0px var(--pop-pink); transition: all 0.2s;
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            margin-top: 2rem; font-size: 1rem; width: fit-content;
+        }
+        .btn-project:hover { transform: translate(-3px, -3px); box-shadow: 7px 7px 0px var(--pop-yellow); }
+        .btn-project:active { transform: translate(3px, 3px); box-shadow: 0px 0px 0px transparent; }
+
+        .badge-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .badge { 
+            background: transparent; color: var(--text-main); padding: 8px 16px; border-radius: 20px; 
+            font-size: 0.9rem; font-weight: 600; border: 2px solid var(--text-main);
+            transition: all 0.2s; cursor: default;
+        }
+        .badge:hover { background: var(--text-main); color: var(--bg-color); transform: scale(1.05); }
+
+        .timeline { 
+            border-left: 4px dashed var(--pop-pink); 
+            padding-left: 30px; 
+            margin-left: 10px; 
+        }
+        .timeline-item { 
+            position: relative; 
+            margin-bottom: 3.5rem; 
+        }
+        
+        .timeline-item::before {
+            content: ''; 
+            position: absolute; 
+            left: -48px; 
+            top: 0px; 
+            width: 32px; 
+            height: 32px;
+            border-radius: 50%; 
+            background: var(--pop-yellow); 
+            border: 4px solid var(--bg-color);
+            z-index: 1;
+        }
+        
+        .timeline-item.current::after {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 10px; 
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--pop-pink); 
+            z-index: 2;
+        }
+
+        .timeline-date { color: var(--pop-cyan); font-weight: 800; font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .timeline-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main); }
+        .timeline-subtitle { font-size: 1.05rem; color: var(--text-muted); font-weight: 500;}
+
+        .interests-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .interest-card {
+            background: var(--card-bg); border: 3px solid var(--text-main); border-radius: 20px; padding: 2rem;
+            box-shadow: 4px 4px 0px var(--pop-purple); transition: all 0.3s; display: flex; align-items: center; gap: 25px;
+        }
+        .interest-card:nth-child(2) { box-shadow: 4px 4px 0px var(--pop-pink); }
+        .interest-card:nth-child(3) { box-shadow: 4px 4px 0px var(--pop-cyan); }
+        .interest-card:hover { transform: translateY(-5px); box-shadow: 8px 8px 0px var(--pop-yellow); }
+        .interest-icon { font-size: 3.5rem; }
+        .interest-content { display: flex; flex-direction: column; }
+        .interest-title { font-weight: 800; font-family: 'Quicksand', sans-serif; font-size: 1.3rem; color: var(--text-main); margin-bottom: 8px; }
+        .interest-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; font-weight: 500; }
+
+        footer { margin-top: 8rem; background: var(--card-bg); border-top: 4px solid var(--text-main); }
+        .footer-container {
+            width: 90%; max-width: 1100px; margin: 0 auto; padding: 5rem 0;
+            display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem;
+        }
+        .footer-col h4 { font-family: 'Quicksand', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-main); }
+        .footer-col p { color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.7; max-width: 350px; font-size: 1.05rem;}
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 1.2rem; }
+        .footer-links a, .footer-links span { color: var(--text-muted); text-decoration: none; transition: color 0.3s; font-weight: 500; font-size: 1.05rem;}
+        .footer-links a:hover { color: var(--pop-pink); }
+        
+        .footer-socials { display: flex; gap: 15px; margin-bottom: 2rem; }
+        .footer-socials a {
+            display: flex; align-items: center; justify-content: center;
+            width: 50px; height: 50px; background: var(--bg-color); border: 2px solid var(--text-main); color: var(--text-main);
+            border-radius: 12px; text-decoration: none; box-shadow: 3px 3px 0px var(--pop-purple); transition: all 0.2s; cursor: pointer;
+        }
+        .footer-socials a svg { width: 24px; height: 24px; fill: currentColor; }
+        .footer-socials a:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0px var(--pop-yellow); }
+
+        .back-to-top {
+            display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--text-main);
+            border: 2px solid var(--text-main); padding: 12px 28px; border-radius: 30px; font-weight: 700;
+            text-decoration: none; transition: all 0.2s; box-shadow: 4px 4px 0px var(--pop-cyan);
+        }
+        .back-to-top:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--pop-yellow); }
+        .back-to-top:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px transparent; }
+
+        .contact-email {
+            background: rgba(0, 229, 255, 0.1); border: 2px dashed var(--pop-cyan); color: var(--pop-cyan);
+            padding: 15px 20px; border-radius: 15px; font-size: 1.15rem; font-weight: 700;
+            user-select: all; letter-spacing: 0.5px; text-align: center; margin-bottom: 1.8rem; display: inline-block; width: 100%;
+        }
+        .social-links { display: flex; flex-direction: column; gap: 15px; width: 100%; }
+        .social-btn {
+            background: var(--bg-color); color: var(--text-main); text-decoration: none;
+            padding: 14px 20px; border-radius: 15px; font-weight: 700; border: 2px solid var(--text-main);
+            box-shadow: 4px 4px 0px var(--pop-pink); transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; font-family: 'Poppins', sans-serif; font-size: 1.05rem; width: 100%;
+        }
+        .social-btn svg { width: 22px; height: 22px; fill: currentColor; }
+        .social-btn.linkedin { box-shadow: 4px 4px 0px #0a66c2; }
+        .social-btn.discord { box-shadow: 4px 4px 0px #5865F2; }
+        .social-btn.github { box-shadow: 4px 4px 0px var(--pop-purple); }
+        .social-btn:hover { transform: translate(-3px, -3px); box-shadow: 7px 7px 0px var(--pop-yellow); }
+        .social-btn:active { transform: translate(3px, 3px); box-shadow: 0px 0px 0px transparent; }
+
+        .footer-bottom {
+            background: var(--pop-cyan); color: #170f2e; text-align: center; padding: 18px 20px; font-weight: 700; font-size: 1rem; border-top: 4px solid var(--text-main);
+        }
+
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.8) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes wiggle { 0% { transform: translateY(0); } 100% { transform: translateY(-8px); } }
+
+        @media (max-width: 900px) {
+            header.hero h1 { font-size: 3.8rem; }
+            .hero-content h2 { white-space: normal; font-size: 1.4rem; }
+            .hero-container { flex-direction: column; text-align: center; gap: 2rem; }
+            .hero-content { text-align: center; }
+            .hero-content p { max-width: 100%; }
+            .hero-content .info-pills { justify-content: center; }
+            .grid-3, .grid-2 { grid-template-columns: 1fr; }
+            .nav-left { flex-direction: column; gap: 10px; align-items: flex-start; }
+            .nav-links { gap: 10px; font-size: 0.9rem; }
+            .nav-right { flex-direction: column; gap: 10px; }
+            nav { padding: 15px; align-items: flex-start; }
+            header.hero { padding-top: 15rem; }
+            .project-card h4 { flex-wrap: wrap; white-space: normal; }
+            .footer-container { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 5%; text-align: center; }
+            .footer-col p { margin: 0 auto 1.5rem; }
+            .footer-socials { justify-content: center; }
+            .interest-card { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+
+    <nav>
+        <div class="nav-left">
+            <a href="#top" class="brand-name">Portfolio</a>
+            <div class="nav-links">
+                <a href="#competences"><span class="fr">Compétences</span><span class="en">Skills</span></a>
+                <a href="#projets"><span class="fr">Projets</span><span class="en">Projects</span></a>
+                <a href="#parcours"><span class="fr">Parcours</span><span class="en">Experience</span></a>
+                <a href="#interets"><span class="fr">Passions</span><span class="en">Interests</span></a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button id="lang-toggle" class="icon-btn">
+                <span class="fr">EN</span><span class="en">FR</span>
+            </button>
+            <button id="theme-toggle" class="icon-btn">
+                <span class="fr">☀️ Clair</span><span class="en">☀️ Light</span>
+            </button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-container">
+            
+            <div class="hero-graphic">
+                <svg viewBox="0 0 500 500" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <g class="shape-pink">
+                        <circle cx="80" cy="120" r="30" fill="var(--pop-pink)" stroke="var(--text-main)" stroke-width="6" />
+                        <path d="M 65 110 Q 80 130 95 110" stroke="var(--text-main)" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    </g>
+                    <g class="shape-yellow">
+                        <polygon points="420,80 435,115 470,115 445,140 455,175 420,155 385,175 395,140 370,115 405,115" fill="var(--pop-yellow)" stroke="var(--text-main)" stroke-width="6" stroke-linejoin="round"/>
+                        <circle cx="410" cy="130" r="4" fill="var(--text-main)"/>
+                        <circle cx="430" cy="130" r="4" fill="var(--text-main)"/>
+                    </g>
+                    <g class="shape-cyan">
+                        <rect x="70" y="380" width="50" height="50" rx="15" fill="var(--pop-cyan)" stroke="var(--text-main)" stroke-width="6" transform="rotate(-15 95 405)"/>
+                        <line x1="85" y1="395" x2="105" y2="395" stroke="var(--text-main)" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="85" y1="410" x2="105" y2="410" stroke="var(--text-main)" stroke-width="4" stroke-linecap="round"/>
+                    </g>
+                    <g class="computer-group">
+                        <rect x="135" y="165" width="260" height="190" rx="20" class="avatar-shadow" />
+                        <path d="M 230 350 L 290 350 L 310 420 L 210 420 Z" class="avatar-base"/>
+                        <line x1="220" y1="385" x2="300" y2="385" stroke="var(--text-main)" stroke-width="6" stroke-linecap="round"/>
+                        <rect x="180" y="420" width="160" height="20" rx="10" class="avatar-base" fill="var(--pop-pink)"/>
+                        <rect x="120" y="150" width="260" height="190" rx="20" class="avatar-base" />
+                        <rect x="140" y="170" width="220" height="140" class="avatar-screen" />
+                        <text x="235" y="260" class="avatar-code">&lt;/&gt;</text>
+                        <rect x="310" y="215" width="20" height="50" rx="5" class="avatar-cursor"/>
+                        <circle cx="155" cy="322" r="5" fill="var(--pop-cyan)"/>
+                        <circle cx="175" cy="322" r="5" fill="var(--pop-yellow)"/>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="hero-content">
+                <h1>Antoine GUYOT</h1>
+                <h2 class="fr">Futur Professionnel du Développement Informatique</h2>
+                <h2 class="en">Future Software Development Professional</h2>
+                
+                <p class="fr">Je suis activement à la recherche d'un stage en développement informatique de 8 à 12 semaines à compter du 7 avril 2026. Mon ambition est d'intégrer une entreprise innovante et dynamique où je pourrai mettre en pratique mes compétences techniques, collaborer en équipe et participer à la création de projets qui apportent une véritable valeur aux utilisateurs !</p>
+                <p class="en">I am actively seeking an 8 to 12-week software development internship starting April 7, 2026. My ambition is to join an innovative and dynamic company where I can apply my technical skills, collaborate with a team, and help create projects that deliver real value to users!</p>
+                
+                <div class="info-pills">
+                    <div class="pill">📍 <span class="fr">Marne (51240)</span><span class="en">Marne, France (51240)</span></div>
+                    <div class="pill">🚗 <span class="fr">Permis B</span><span class="en">Driver's License (B)</span></div>
+                    <div class="pill">🇬🇧 <span class="fr">Anglais B2</span><span class="en">English B2</span></div>
+                </div>
+
+                <a href="contact.html" class="btn-contact"><span class="fr">Me Contacter</span><span class="en">Contact Me</span></a>
+            </div>
+
+        </div>
+    </header>
+
+    <div class="container">
+
+        <section id="competences">
+            <h3><span class="fr">Mes Compétences</span><span class="en">My Skills</span></h3>
+            <div class="grid-3">
+                <div class="card skills-card">
+                    <span class="skills-icon">💻</span>
+                    <h4><span class="fr">Code & Logique</span><span class="en">Code & Logic</span></h4>
+                    <div class="badge-group">
+                        <span class="badge">PHP / Symfony</span>
+                        <span class="badge">Python</span>
+                        <span class="badge">C#</span>
+                        <span class="badge">JavaScript</span>
+                        <span class="badge">HTML / CSS</span>
+                    </div>
+                </div>
+                <div class="card skills-card">
+                    <span class="skills-icon" style="animation-delay: -1s;">🗄️</span>
+                    <h4><span class="fr">Data & Structure</span><span class="en">Data & Structure</span></h4>
+                    <div class="badge-group">
+                        <span class="badge"><span class="fr">SQL Avancé</span><span class="en">Advanced SQL</span></span>
+                        <span class="badge">MCD / MLD</span>
+                        <span class="badge">PowerAMC</span>
+                        <span class="badge">Oracle</span>
+                    </div>
+                </div>
+                <div class="card skills-card">
+                    <span class="skills-icon" style="animation-delay: -2s;">⚙️</span>
+                    <h4><span class="fr">Outils & Méthodes</span><span class="en">Tools & Methods</span></h4>
+                    <div class="badge-group">
+                        <span class="badge">Git</span>
+                        <span class="badge">Linux / Windows</span>
+                        <span class="badge"><span class="fr">Tests Unitaires</span><span class="en">Unit Testing</span></span>
+                        <span class="badge">Scrum</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projets">
+            <h3><span class="fr">Mes Projets</span><span class="en">My Projects</span></h3>
+            <div class="grid-2">
+                
+                <div class="card project-card">
+                    <div class="project-content">
+                        <h4>Resto N' <span class="project-type" style="color: var(--pop-cyan);">🎓 <span class="fr">Académique</span><span class="en">Academic</span></span></h4>
+                        <p class="fr">Conception et développement d'une application web dédiée à la gestion de restaurants. Création des interfaces utilisateur et mise en place d'une base de données relationnelle pour le suivi des commandes et des menus.</p>
+                        <p class="en">Design and development of a web application dedicated to restaurant management. Creation of user interfaces and implementation of a relational database for tracking orders and menus.</p>
+                    </div>
+                    <div class="project-footer">
+                        <div class="project-techs">
+                            <div><strong>Stack <span class="fr">:</span><span class="en">:</span></strong> PHP / Symfony, <span class="fr">POO</span><span class="en">OOP</span></div>
+                            <div><strong>Data <span class="fr">:</span><span class="en">:</span></strong> SQL, PowerAMC</div>
+                            <div><strong><span class="fr">Outils :</span><span class="en">Tools:</span></strong> Git, <span class="fr">Tests unitaires</span><span class="en">Unit testing</span></div>
+                        </div>
+                        <a href="https://github.com/aguyot32/Resto-N-" class="btn-project" target="_blank">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                            <span class="fr">Voir sur GitHub</span><span class="en">View on GitHub</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card project-card perso">
+                    <div class="project-content">
+                        <h4>Pop Quiz Game 🎮 <span class="project-type" style="color: var(--pop-pink);">🚀 <span class="fr">Personnel</span><span class="en">Personal</span></span></h4>
+                        <p class="fr">Création Fullstack d'un jeu interactif multithématique. Mise en place d'une API de classement et de requêtes asynchrones en JavaScript.</p>
+                        <p class="en">Fullstack creation of an interactive multi-theme quiz game. Implementation of a leaderboard API and asynchronous JavaScript requests (Fetch).</p>
+                    </div>
+                    <div class="project-footer">
+                        <div class="project-techs">
+                            <div><strong>Frontend <span class="fr">:</span><span class="en">:</span></strong> HTML/CSS, Vanilla JS</div>
+                            <div><strong>Backend <span class="fr">:</span><span class="en">:</span></strong> PHP, Session Storage</div>
+                            <div><strong>Data <span class="fr">:</span><span class="en">:</span></strong> <span class="fr">Base de données relationnelle</span><span class="en">Relational database</span></div>
+                        </div>
+                        <a href="../Pop Game Quiz/index.php" class="btn-project" target="_blank">🎮 <span class="fr">Jouer au Quiz !</span><span class="en">Play the Quiz!</span></a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="parcours">
+            <h3><span class="fr">Mon Parcours</span><span class="en">My Background</span></h3>
+            <div class="timeline">
+                <div class="timeline-item current">
+                    <div class="timeline-date"><span class="fr">Sept 2024 - Présent</span><span class="en">Sept 2024 - Present</span></div>
+                    <div class="timeline-title"><span class="fr">BUT Informatique (2e Année)</span><span class="en">Bachelor's in Computer Science (2nd Year)</span></div>
+                    <div class="timeline-subtitle"><span class="fr">I.U.T de Reims — Parcours Développement</span><span class="en">I.U.T of Reims — Software Development Track</span></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date"><span class="fr">Juillet 2025</span><span class="en">July 2025</span></div>
+                    <div class="timeline-title"><span class="fr">Préparateur de commandes et Expéditeur (CDD)</span><span class="en">Order Picker and Shipper (Fixed-term)</span></div>
+                    <div class="timeline-subtitle"><span class="fr">C-LOG, Vatry - Rigueur, autonomie et organisation.</span><span class="en">C-LOG, Vatry - Rigor, autonomy, and organization.</span></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-title"><span class="fr">Baccalauréat Général</span><span class="en">High School Diploma (Baccalauréat Général)</span></div>
+                    <div class="timeline-subtitle"><span class="fr">Spécialités Mathématiques et Numérique Sciences Informatiques</span><span class="en">Majors: Mathematics and Computer Science</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="interets">
+            <h3><span class="fr">Mes Passions</span><span class="en">My Interests</span></h3>
+            <div class="interests-grid">
+                <div class="interest-card">
+                    <span class="interest-icon">🧗‍♂️</span>
+                    <div class="interest-content">
+                        <span class="interest-title"><span class="fr">Escalade</span><span class="en">Rock Climbing</span></span>
+                        <p class="interest-desc fr">Développe ma concentration, ma persévérance, ainsi que mes capacités de communication et d'entraide.</p>
+                        <p class="interest-desc en">Develops my focus, perseverance, as well as my communication and teamwork skills.</p>
+                    </div>
+                </div>
+                <div class="interest-card">
+                    <span class="interest-icon">🎮</span>
+                    <div class="interest-content">
+                        <span class="interest-title"><span class="fr">Jeux Vidéos</span><span class="en">Video Games</span></span>
+                        <p class="interest-desc fr">Une passion qui stimule ma créativité, mon esprit d'analyse et ma culture technologique.</p>
+                        <p class="interest-desc en">A passion that stimulates my creativity, analytical mind, and technological culture.</p>
+                    </div>
+                </div>
+                <div class="interest-card">
+                    <span class="interest-icon">🎵</span>
+                    <div class="interest-content">
+                        <span class="interest-title"><span class="fr">Musique</span><span class="en">Music</span></span>
+                        <p class="interest-desc fr">Nourrit mon inspiration au quotidien, développe mon sens de l'écoute et ma concentration profonde.</p>
+                        <p class="interest-desc en">Fuels my daily inspiration, develops my listening skills, and deep concentration.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <a href="#top" class="brand-name" style="display:inline-block; margin-bottom: 1rem; font-size: 2.2rem;">Antoine</a>
+                <p class="fr">Étudiant en BUT Informatique, passionné par le développement, la data et la création d'applications innovantes.</p>
+                <p class="en">Computer Science student, passionate about software development, data, and creating innovative applications.</p>
+                
+                <div class="footer-socials">
+                    <a href="mailto:guyot.antoine512@gmail.com" title="Email">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4.25l-8 4.96-8-4.96V6l8 5 8-5v2.25z"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/antoine-guyot-3aa085357/" title="LinkedIn" target="_blank">
+                        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://github.com/aguyot32" title="GitHub" target="_blank">
+                        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.285 0 .315.21.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    </a>
+                    <a href="#" class="discord-copy-btn" title="Discord">
+                        <svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.31,60,73.31,53s5-12.74,11.43-12.74S96.2,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
+                    </a>
+                </div>
+
+                <a href="#top" class="back-to-top">
+                    <span style="font-size: 1.2rem;">⬆</span> <span class="fr">REMONTER</span><span class="en">BACK TO TOP</span>
+                </a>
+            </div>
+
+            <div class="footer-col">
+                <h4><span class="fr">Plan du site</span><span class="en">Sitemap</span></h4>
+                <ul class="footer-links">
+                    <li><a href="#top"><span class="fr">Accueil</span><span class="en">Home</span></a></li>
+                    <li><a href="#competences"><span class="fr">Compétences</span><span class="en">Skills</span></a></li>
+                    <li><a href="#projets"><span class="fr">Projets Réalisés</span><span class="en">Projects</span></a></li>
+                    <li><a href="#parcours"><span class="fr">Mon Parcours</span><span class="en">Experience</span></a></li>
+                    <li><a href="#interets"><span class="fr">Passions</span><span class="en">Interests</span></a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4><span class="fr">Contactez-moi</span><span class="en">Contact Me</span></h4>
+                
+                <div class="contact-email" title="Email">
+                    guyot.antoine512@gmail.com
+                </div>
+
+                <div class="social-links">
+                    <a href="contact.html" class="social-btn" style="box-shadow: 4px 4px 0px var(--pop-cyan);">➔ <span class="fr">Formulaire de contact</span><span class="en">Contact Form</span></a>
+                    
+                    <a href="https://www.linkedin.com/in/antoine-guyot-3aa085357/" class="social-btn linkedin" target="_blank">
+                        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        LinkedIn
+                    </a>
+                    
+                    <a href="https://github.com/aguyot32" class="social-btn github" target="_blank">
+                        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.285 0 .315.21.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        GitHub
+                    </a>
+                    
+                    <button class="social-btn discord discord-copy-btn">
+                        <svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.31,60,73.31,53s5-12.74,11.43-12.74S96.2,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
+                        Discord
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span class="fr">Copyright © 2026 Antoine GUYOT. Tous droits réservés. | <a href="mentions-legales.html" style="color: inherit; text-decoration: underline;">Mentions Légales</a></span>
+            <span class="en">Copyright © 2026 Antoine GUYOT. All rights reserved. | <a href="mentions-legales.html" style="color: inherit; text-decoration: underline;">Legal Notice</a></span>
+        </div>
+    </footer>
+
+    <script>
+        const themeBtn = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('theme');
+        
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            if (themeBtn) themeBtn.innerHTML = '<span class="fr">🌙 Sombre</span><span class="en">🌙 Dark</span>';
+        }
+
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                const isLight = document.body.classList.contains('light-mode');
+                
+                if (isLight) {
+                    localStorage.setItem('theme', 'light');
+                    themeBtn.innerHTML = '<span class="fr">🌙 Sombre</span><span class="en">🌙 Dark</span>';
+                } else {
+                    localStorage.setItem('theme', 'dark');
+                    themeBtn.innerHTML = '<span class="fr">☀️ Clair</span><span class="en">☀️ Light</span>';
+                }
+            });
+        }
+
+        const langBtn = document.getElementById('lang-toggle');
+        const savedLang = localStorage.getItem('lang') || 'fr';
+        
+        document.documentElement.lang = savedLang;
+
+        langBtn.addEventListener('click', () => {
+            const currentLang = document.documentElement.lang;
+            const newLang = currentLang === 'fr' ? 'en' : 'fr';
+            
+            document.documentElement.lang = newLang;
+            localStorage.setItem('lang', newLang);
+        });
+
+        const discordBtns = document.querySelectorAll('.discord-copy-btn');
+        const monPseudoDiscord = "stayaway9089"; 
+
+        function copyToClipboard(text, btn) {
+            const originalText = btn.innerHTML;
+            const isSmallBtn = btn.closest('.footer-socials') !== null;
+            
+            const showSuccess = () => {
+                const currentLang = document.documentElement.lang;
+                const successText = currentLang === 'fr' ? "✅ Copié !" : "✅ Copied!";
+                btn.innerHTML = isSmallBtn ? "✅" : successText;
+                btn.style.backgroundColor = "var(--pop-cyan)";
+                btn.style.color = "#170f2e";
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.backgroundColor = "";
+                    btn.style.color = "";
+                }, 2000);
+            };
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(showSuccess).catch(err => {
+                    console.error('Erreur', err);
+                    alert('Mon pseudo Discord est : ' + text);
+                });
+            } else {
+                let textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showSuccess();
+                } catch (err) {
+                    console.error('Erreur ancienne méthode', err);
+                    alert('Mon pseudo Discord est : ' + text);
+                }
+                textArea.remove();
+            }
+        }
+
+        discordBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                copyToClipboard(monPseudoDiscord, btn);
+            });
+        });
+    </script>
+
+</body>
+</html>

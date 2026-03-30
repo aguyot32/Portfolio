@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Antoine GUYOT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #170f2e;
+            --nav-bg: rgba(23, 15, 46, 0.8);
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            
+            --pop-pink: #ff2a85;
+            --pop-cyan: #00e5ff;
+            --pop-yellow: #ffdf00;
+            --pop-purple: #8a2be2;
+            
+            --card-bg: #221742;
+        }
+
+        body.light-mode {
+            --bg-color: #fcf8ff;
+            --nav-bg: rgba(252, 248, 255, 0.8);
+            --text-main: #1e1b4b;
+            --text-muted: #475569;
+            --card-bg: #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.4s;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        :lang(fr) .en { display: none !important; }
+        :lang(en) .fr { display: none !important; }
+
+        .bg-shapes {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden;
+        }
+        .shape {
+            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: float 10s infinite ease-in-out alternate;
+        }
+        .shape-1 { width: 300px; height: 300px; background: var(--pop-purple); top: 10%; left: -5%; }
+        .shape-2 { width: 400px; height: 400px; background: var(--pop-pink); bottom: -10%; right: -5%; animation-delay: -3s; }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(40px) scale(1.1); }
+        }
+
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 15px 5%;
+            background: var(--nav-bg); backdrop-filter: blur(12px);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; border-bottom: 2px solid rgba(255,255,255,0.05);
+        }
+        
+        .nav-left, .nav-right { display: flex; align-items: center; gap: 25px; }
+
+        .brand-name {
+            font-family: 'Quicksand', sans-serif; font-size: 1.5rem; font-weight: 700;
+            color: var(--pop-pink); text-decoration: none;
+            transition: transform 0.2s, color 0.2s;
+        }
+        .brand-name:hover { transform: scale(1.05) rotate(-2deg); color: var(--pop-yellow); }
+
+        .icon-btn {
+            background: var(--card-bg); border: 2px solid var(--text-main); color: var(--text-main);
+            padding: 8px 16px; border-radius: 30px; cursor: pointer; font-family: inherit; font-weight: 700;
+            box-shadow: 3px 3px 0px var(--text-main); transition: all 0.2s;
+        }
+        .icon-btn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0px var(--pop-yellow); }
+        .icon-btn:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px transparent; }
+
+        .contact-container {
+            width: 90%; max-width: 600px; margin: 10rem auto 4rem;
+            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .contact-header { text-align: center; margin-bottom: 3rem; }
+        .contact-header h1 {
+            font-family: 'Quicksand', sans-serif; font-size: 3rem; margin-bottom: 1rem;
+            color: var(--text-main); text-shadow: 3px 3px 0px var(--pop-cyan);
+        }
+        .contact-header p { color: var(--text-muted); font-size: 1.1rem; }
+
+        .contact-card {
+            background: var(--card-bg); border: 3px solid var(--text-main); border-radius: 24px; padding: 2.5rem;
+            box-shadow: 8px 8px 0px var(--pop-pink);
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label {
+            display: block; font-weight: 600; margin-bottom: 0.5rem; font-family: 'Quicksand', sans-serif; font-size: 1.1rem;
+        }
+        
+        .form-input {
+            width: 100%; padding: 15px; border-radius: 12px;
+            background: var(--bg-color); border: 2px solid var(--text-main); color: var(--text-main);
+            font-family: 'Poppins', sans-serif; font-size: 1rem;
+            box-shadow: inset 2px 2px 0px rgba(0,0,0,0.1); transition: all 0.3s;
+        }
+        .form-input:focus {
+            outline: none; border-color: var(--pop-yellow);
+            box-shadow: 4px 4px 0px var(--pop-yellow); transform: translate(-2px, -2px);
+        }
+        
+        textarea.form-input { resize: vertical; min-height: 150px; }
+
+        .btn-submit {
+            width: 100%; background: var(--pop-cyan); color: #170f2e; padding: 15px; border-radius: 12px;
+            font-family: 'Quicksand', sans-serif; font-size: 1.2rem; font-weight: 700; cursor: pointer;
+            border: 3px solid var(--text-main); box-shadow: 5px 5px 0px var(--pop-purple); transition: all 0.2s;
+            margin-top: 1rem;
+        }
+        .btn-submit:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0px var(--pop-yellow); }
+        .btn-submit:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px transparent; }
+
+        footer { text-align: center; padding: 2rem; margin-top: auto; border-top: 4px solid var(--text-main); font-weight: 600; }
+        footer a { color: var(--pop-pink); text-decoration: none; border-bottom: 2px dashed var(--pop-pink); transition: color 0.3s; }
+        footer a:hover { color: var(--pop-yellow); border-color: var(--pop-yellow); }
+
+        @keyframes popIn { 
+            0% { opacity: 0; transform: scale(0.9) translateY(20px); } 
+            100% { opacity: 1; transform: scale(1) translateY(0); } 
+        }
+
+        @media (max-width: 768px) {
+            .contact-header h1 { font-size: 2.5rem; }
+            .nav-left, .nav-right { flex-direction: column; gap: 10px; align-items: flex-start; }
+            nav { padding: 15px; align-items: flex-start; }
+            .contact-container { margin-top: 14rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+
+    <nav>
+        <div class="nav-left">
+            <a href="index.html" class="brand-name">Portfolio</a>
+        </div>
+        <div class="nav-right">
+            <button id="lang-toggle" class="icon-btn">
+                <span class="fr">EN</span><span class="en">FR</span>
+            </button>
+            <button id="theme-toggle" class="icon-btn">
+                <span class="fr">☀️ Clair</span><span class="en">☀️ Light</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="contact-container">
+        <div class="contact-header">
+            <h1 class="fr">Me Contacter</h1>
+            <h1 class="en">Contact Me</h1>
+            <p class="fr">Vous avez une proposition de stage ou un projet ? <br> Laissez-moi un message !</p>
+            <p class="en">Do you have an internship proposal or a project? <br> Leave me a message!</p>
+        </div>
+
+        <div class="contact-card">
+            <form action="https://formspree.io/f/xyknzljl" method="POST">
+                <div class="form-group">
+                    <label for="name"><span class="fr">Votre Nom</span><span class="en">Your Name</span></label>
+                    <input type="text" id="name" name="name" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email"><span class="fr">Votre Email</span><span class="en">Your Email</span></label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message"><span class="fr">Votre Message</span><span class="en">Your Message</span></label>
+                    <textarea id="message" name="message" class="form-input" required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <span class="fr">Envoyer le Message</span><span class="en">Send the Message</span>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p class="fr">© 2026 Antoine GUYOT | <a href="index.html">Retour à l'accueil</a></p>
+        <p class="en">© 2026 Antoine GUYOT | <a href="index.html">Back to Home</a></p>
+    </footer>
+
+    <script>
+        const themeBtn = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('theme');
+        
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            if (themeBtn) themeBtn.innerHTML = '<span class="fr">🌙 Sombre</span><span class="en">🌙 Dark</span>';
+        }
+
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                const isLight = document.body.classList.contains('light-mode');
+                
+                if (isLight) {
+                    localStorage.setItem('theme', 'light');
+                    themeBtn.innerHTML = '<span class="fr">🌙 Sombre</span><span class="en">🌙 Dark</span>';
+                } else {
+                    localStorage.setItem('theme', 'dark');
+                    themeBtn.innerHTML = '<span class="fr">☀️ Clair</span><span class="en">☀️ Light</span>';
+                }
+            });
+        }
+
+        const langBtn = document.getElementById('lang-toggle');
+        const savedLang = localStorage.getItem('lang') || 'fr';
+        
+        document.documentElement.lang = savedLang;
+
+        langBtn.addEventListener('click', () => {
+            const currentLang = document.documentElement.lang;
+            const newLang = currentLang === 'fr' ? 'en' : 'fr';
+            
+            document.documentElement.lang = newLang;
+            localStorage.setItem('lang', newLang);
+        });
+    </script>
+
+</body>
+</html>
