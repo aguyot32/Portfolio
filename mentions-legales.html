@@ -44,6 +44,7 @@
             min-height: 100vh;
         }
 
+        /* --- SYSTÈME MULTILINGUE CSS --- */
         :lang(fr) .en { display: none !important; }
         :lang(en) .fr { display: none !important; }
 
@@ -205,17 +206,15 @@
                 <div class="fr">
                     <p>Ce site internet, ainsi que les projets qui y sont liés (notamment le Pop Quiz Game), sont hébergés par :</p>
                     <p>
-                        <strong>I.U.T de Reims (Université de Reims Champagne-Ardenne)</strong><br>
-                        Chemin des Rouliers, 51100 Reims, France<br>
-                        Téléphone : +33 (0)3 26 91 30 00
+                        <strong>alwaysdata</strong><br>
+                        Site web : <a href="https://www.alwaysdata.com" target="_blank">www.alwaysdata.com</a>
                     </p>
                 </div>
                 <div class="en">
                     <p>This website, as well as its related projects (notably the Pop Quiz Game), are hosted by:</p>
                     <p>
-                        <strong>I.U.T of Reims (University of Reims Champagne-Ardenne)</strong><br>
-                        Chemin des Rouliers, 51100 Reims, France<br>
-                        Phone: +33 (0)3 26 91 30 00
+                        <strong>alwaysdata</strong><br>
+                        Website: <a href="https://www.alwaysdata.com" target="_blank">www.alwaysdata.com</a>
                     </p>
                 </div>
             </div>
@@ -239,14 +238,14 @@
                 <h2 class="en">5. Personal Data & Privacy Policy</h2>
                 
                 <div class="fr">
-                    <p>De manière générale, vous n’êtes pas tenu de nous communiquer vos données personnelles lorsque vous visitez le site.</p>
+                    <p>De manière générale, vous n'êtes pas tenu de nous communiquer vos données personnelles lorsque vous visitez le site.</p>
                     <p><strong>Formulaire de contact :</strong> Les données soumises via le formulaire de contact (nom, adresse e-mail, message) sont traitées de manière sécurisée par le service tiers <strong>Formspree</strong>. Ces données sont utilisées uniquement dans le but de répondre à votre demande et ne sont ni vendues, ni cédées à des tiers.</p>
-                    <p><strong>Pop Quiz Game :</strong> Le jeu lié à ce portfolio utilise le <em>Session Storage</em> et le <em>Local Storage</em> de votre navigateur pour sauvegarder vos préférences (nom de joueur, catégories choisies) et vos scores temporaires. Ces données restent en grande partie locales à votre appareil. Si une sauvegarde de score est effectuée vers l'API, seuls le nom saisi, le score et le temps sont conservés à des fins de classement.</p>
+                    <p><strong>Pop Quiz Game :</strong> Le jeu lié à ce portfolio utilise le <em>Session Storage</em> et le <em>Local Storage</em> de votre navigateur pour sauvegarder vos préférences (nom de joueur, catégories choisies). Ces données restent en grande partie locales à votre appareil. Les sauvegardes de score sont effectuées vers l'API ; seuls le nom saisi, le score et le temps sont conservés à des fins de classement.</p>
                 </div>
                 <div class="en">
                     <p>Generally, you are not required to provide your personal data when visiting this website.</p>
                     <p><strong>Contact Form:</strong> The data submitted via the contact form (name, email address, message) is securely processed by the third-party service <strong>Formspree</strong>. This data is used solely to respond to your inquiry and is never sold or transferred to third parties.</p>
-                    <p><strong>Pop Quiz Game:</strong> The game linked to this portfolio uses your browser's <em>Session Storage</em> and <em>Local Storage</em> to save your preferences (player name, chosen categories) and temporary scores. This data remains mostly local to your device. If a score is saved to the API, only the entered name, score, and time are kept for leaderboard purposes.</p>
+                    <p><strong>Pop Quiz Game:</strong> The game linked to this portfolio uses your browser's <em>Session Storage</em> and <em>Local Storage</em> to save your preferences (player name, chosen categories) and temporary scores. This data remains mostly local to your device. Scores are sent to the API; only the name, score, and time are stored for the leaderboard.</p>
                 </div>
             </div>
 
@@ -254,7 +253,7 @@
                 <h2 class="fr">6. Liens hypertextes</h2>
                 <h2 class="en">6. Hyperlinks</h2>
                 
-                <p class="fr">Ce site peut contenir des liens hypertextes vers d’autres sites présents sur le réseau Internet. Les liens vers ces autres ressources vous font quitter le présent site. Antoine GUYOT décline toute responsabilité quant au contenu de ces sites tiers.</p>
+                <p class="fr">Ce site peut contenir des liens hypertextes vers d'autres sites présents sur le réseau Internet. Les liens vers ces autres ressources vous font quitter le présent site. Antoine GUYOT décline toute responsabilité quant au contenu de ces sites tiers.</p>
                 <p class="en">This website may contain hyperlinks to other websites on the Internet. Links to these other resources will cause you to leave this website. Antoine GUYOT declines any responsibility regarding the content or privacy practices of these third-party websites.</p>
             </div>
 
@@ -295,13 +294,15 @@
         
         document.documentElement.lang = savedLang;
 
-        langBtn.addEventListener('click', () => {
-            const currentLang = document.documentElement.lang;
-            const newLang = currentLang === 'fr' ? 'en' : 'fr';
-            
-            document.documentElement.lang = newLang;
-            localStorage.setItem('lang', newLang);
-        });
+        if (langBtn) {
+            langBtn.addEventListener('click', () => {
+                const currentLang = document.documentElement.lang;
+                const newLang = currentLang === 'fr' ? 'en' : 'fr';
+                
+                document.documentElement.lang = newLang;
+                localStorage.setItem('lang', newLang);
+            });
+        }
     </script>
 
 </body>
