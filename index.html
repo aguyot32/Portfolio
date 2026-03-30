@@ -139,6 +139,12 @@
         .pill:nth-child(2) { border-color: var(--pop-cyan); box-shadow: 4px 4px 0px var(--pop-cyan); animation-delay: 0.5s; }
         .pill:nth-child(3) { border-color: var(--pop-yellow); box-shadow: 4px 4px 0px var(--pop-yellow); animation-delay: 1s; color: var(--text-main); }
 
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
         .btn-contact {
             background: var(--pop-pink); color: #fff; padding: 15px 40px; border-radius: 50px;
             text-decoration: none; font-size: 1.2rem; font-weight: 700; display: inline-block;
@@ -146,6 +152,14 @@
         }
         .btn-contact:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0px var(--pop-yellow); }
         .btn-contact:active { transform: translate(3px, 3px); box-shadow: 0px 0px 0px transparent; }
+
+        .btn-cv {
+            background: var(--card-bg); color: var(--text-main); padding: 15px 40px; border-radius: 50px;
+            text-decoration: none; font-size: 1.2rem; font-weight: 700; display: inline-flex; align-items: center; gap: 10px;
+            border: 3px solid var(--text-main); box-shadow: 6px 6px 0px var(--pop-purple); transition: all 0.2s;
+        }
+        .btn-cv:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0px var(--pop-yellow); }
+        .btn-cv:active { transform: translate(3px, 3px); box-shadow: 0px 0px 0px transparent; }
 
         .avatar-base { fill: var(--card-bg); stroke: var(--text-main); stroke-width: 8px; stroke-linejoin: round; stroke-linecap: round; }
         .avatar-shadow { fill: var(--pop-purple); }
@@ -459,7 +473,10 @@
                     <div class="pill">🇬🇧 <span class="fr">Anglais B2</span><span class="en">English B2</span></div>
                 </div>
 
-                <a href="contact.html" class="btn-contact"><span class="fr">Me Contacter</span><span class="en">Contact Me</span></a>
+                <div class="hero-actions">
+                    <a href="contact.html" class="btn-contact"><span class="fr">Me Contacter</span><span class="en">Contact Me</span></a>
+                    <a href="CV%20Antoine%20GUYOT.pdf" class="btn-cv" target="_blank"><span class="fr">Mon CV</span><span class="en">My Resume</span></a>
+                </div>
             </div>
 
         </div>
