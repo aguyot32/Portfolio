@@ -98,7 +98,7 @@
         }
 
         .hero-container {
-            display: flex; align-items: center; justify-content: space-between; gap: 4rem;
+            display: flex; align-items: flex-start; justify-content: space-between; gap: 4rem;
         }
 
         .hero-graphic {
@@ -142,8 +142,21 @@
 
         .hero-actions {
             display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .hero-cv-row {
+            display: flex;
             gap: 20px;
             flex-wrap: wrap;
+        }
+
+        .pixel-btn-icon {
+            width: 25px;
+            height: auto;
+            flex-shrink: 0;
+            transform: translateX(-8px);
         }
 
         .btn-contact {
@@ -156,8 +169,9 @@
 
         .btn-cv {
             background: var(--card-bg); color: var(--text-main); padding: 15px 40px; border-radius: 50px;
-            text-decoration: none; font-size: 1.2rem; font-weight: 700; display: inline-flex; align-items: center; gap: 10px;
-            border: 3px solid var(--text-main); box-shadow: 6px 6px 0px var(--pop-purple); transition: all 0.2s;
+            text-decoration: none; font-size: 1.2rem; font-weight: 700; display: inline-flex; align-items: center; 
+            justify-content: center;
+            gap: 10px; border: 3px solid var(--text-main); box-shadow: 6px 6px 0px var(--pop-purple); transition: all 0.2s;
         }
         .btn-cv:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0px var(--pop-yellow); }
         .btn-cv:active { transform: translate(3px, 3px); box-shadow: 0px 0px 0px transparent; }
@@ -179,8 +193,11 @@
         .shape-cyan { animation: floatShape3 3.5s ease-in-out infinite 0.5s; transform-origin: center; }
         .computer-group { animation: levitate 6s ease-in-out infinite; transform-origin: center; }
 
-        .container { width: 90%; max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 6rem; }
-        section { scroll-margin-top: 120px; }
+        .container { 
+            width: 90%; 
+            max-width: 1250px;
+            margin: 0 auto; display: flex; flex-direction: column; gap: 6rem; 
+        }
         
         section h3 { 
             font-size: 2.5rem; margin-bottom: 3rem; color: var(--text-main); font-weight: 800;
@@ -192,7 +209,7 @@
             background: var(--pop-pink); z-index: -1; transform: rotate(-2deg); border-radius: 5px;
         }
 
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2.5rem; }
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 3rem; } 
         
         .card {
@@ -203,7 +220,7 @@
         
         .skills-card { text-align: center; }
         .skills-icon { font-size: 3.5rem; margin-bottom: 1.5rem; display: block; animation: float-icon 2s infinite ease-in-out alternate; }
-        .skills-card h4 { font-size: 1.4rem; margin-bottom: 1.5rem; font-weight: 700; }
+        .skills-card h4 { font-size: 1.7rem; margin-bottom: 1.5rem; font-weight: 700; }
 
         .project-card { 
             border-radius: 30px; 
@@ -271,6 +288,29 @@
         }
         .badge:hover { background: var(--text-main); color: var(--bg-color); transform: scale(1.05); }
 
+        .skill-bars { display: flex; flex-direction: column; gap: 18px; text-align: left; }
+        .skill-bar-item { width: 100%; }
+        .skill-bar-label { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; font-weight: 700; font-size: 1.15rem; color: var(--text-main); }
+        .skill-bar-percent { font-weight: 800; font-size: 1.1rem; color: var(--pop-cyan); flex-shrink: 0; }
+        .skill-bar-track { width: 100%; height: 14px; background: var(--bg-color); border: 2px solid var(--text-main); border-radius: 20px; overflow: hidden; }
+        .skill-bar-fill { height: 100%; width: 0%; border-radius: 20px; background: var(--pop-purple); transition: width 1.4s cubic-bezier(0.65, 0, 0.35, 1); }
+        .skill-bar-fill.filled { width: var(--target-width); }
+        .skill-bars.cyan .skill-bar-fill { background: var(--pop-cyan); }
+        .skill-bars.pink .skill-bar-fill { background: var(--pop-pink); }
+        .skill-bars.yellow .skill-bar-fill { background: var(--pop-yellow); }
+
+        .scroll-top-btn {
+            position: fixed; bottom: 30px; right: 30px; width: 56px; height: 56px; border-radius: 50%;
+            background: var(--card-bg); border: 3px solid var(--text-main); color: var(--text-main);
+            display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+            text-decoration: none; box-shadow: 4px 4px 0px var(--pop-pink); z-index: 999;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.2s, box-shadow 0.2s;
+        }
+        .scroll-top-btn.visible { opacity: 1; visibility: visible; }
+        .scroll-top-btn:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0px var(--pop-yellow); }
+        .scroll-top-btn:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px transparent; }
+
         .timeline { 
             border-left: 4px dashed var(--pop-pink); 
             padding-left: 30px; 
@@ -297,8 +337,8 @@
         .timeline-item.current::after {
             content: '';
             position: absolute;
-            left: -38px;
-            top: 10px; 
+            left: -34px;
+            top: 14px; 
             width: 12px;
             height: 12px;
             border-radius: 50%;
@@ -396,6 +436,9 @@
             .footer-col p { margin: 0 auto 1.5rem; }
             .footer-socials { justify-content: center; }
             .interest-card { flex-direction: column; text-align: center; }
+            .scroll-top-btn { width: 48px; height: 48px; font-size: 1.2rem; bottom: 20px; right: 20px; }
+            .hero-actions { align-items: center; }
+            .hero-cv-row { justify-content: center; }
         }
     </style>
 </head>
@@ -476,8 +519,17 @@
                 </div>
 
                 <div class="hero-actions">
-                    <a href="contact.html" class="btn-contact"><span class="fr">Me Contacter</span><span class="en">Contact Me</span></a>
-                    <a href="CV%20Antoine%20stage.pdf" class="btn-cv" target="_blank"><span class="fr">Mon CV</span><span class="en">My Resume</span></a>
+                    <div class="hero-contact-row">
+                        <a href="contact.html" class="btn-contact"><span class="fr">Me Contacter</span><span class="en">Contact Me</span></a>
+                    </div>
+                    
+                    <div class="hero-cv-row">
+                        <a href="CV%20Antoine%20stage.pdf" class="btn-cv" target="_blank"><span class="fr">Mon CV</span><span class="en">My Resume</span></a>
+                        <a href="CV%20Antoine%20stage.pdf" class="btn-cv" download="CV_Antoine_GUYOT.pdf" target="_blank">
+                            <img src="Images/telecharger.png" alt="Télécharger" class="pixel-btn-icon">
+                            <span class="fr">Télécharger mon CV</span><span class="en">Download my Resume</span>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -492,34 +544,79 @@
                 <div class="card skills-card">
                     <span class="skills-icon">💻</span>
                     <h4><span class="fr">Code & Logique</span><span class="en">Code & Logic</span></h4>
-                    <div class="badge-group">
-                        <span class="badge">PHP / Symfony</span>
-                        <span class="badge">Python</span>
-                        <span class="badge">C#</span>
-                        <span class="badge">JavaScript</span>
-                        <span class="badge">HTML / CSS</span>
-                        <span class="badge">WinDev / WLangage</span>
+                    <div class="skill-bars cyan">
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-label"><span>HTML / CSS</span><span class="skill-bar-percent">90%</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 90%;"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-label"><span>JavaScript</span><span class="skill-bar-percent">85%</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 85%;"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-label"><span>PHP / Symfony</span><span class="skill-bar-percent">80%</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 80%;"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-label"><span>Python</span><span class="skill-bar-percent">65%</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 65%;"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-label"><span>C#</span><span class="skill-bar-percent">60%</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 60%;"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-label"><span>WinDev / WLangage</span><span class="skill-bar-percent">55%</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 55%;"></div></div>
+                        </div>
                     </div>
                 </div>
                 <div class="card skills-card">
                     <span class="skills-icon" style="animation-delay: -1s;">🗄️</span>
                     <h4><span class="fr">Data & Structure</span><span class="en">Data & Structure</span></h4>
-                    <div class="badge-group">
-                        <span class="badge"><span class="fr">SQL Avancé</span><span class="en">Advanced SQL</span></span>
-                        <span class="badge">MCD / MLD</span>
-                        <span class="badge">PowerAMC</span>
-                        <span class="badge">Oracle</span>
-                        <span class="badge">MongoDB</span>
+                    <div class="skill-bars pink">
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-label"><span><span class="fr">SQL Avancé</span><span class="en">Advanced SQL</span></span><span class="skill-bar-percent">80%</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 80%;"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-label"><span>MCD / MLD</span><span class="skill-bar-percent">75%</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 75%;"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-label"><span>PowerAMC</span><span class="skill-bar-percent">70%</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 70%;"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-label"><span>Oracle</span><span class="skill-bar-percent">65%</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 65%;"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-label"><span>MongoDB</span><span class="skill-bar-percent">55%</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 55%;"></div></div>
+                        </div>
                     </div>
                 </div>
                 <div class="card skills-card">
                     <span class="skills-icon" style="animation-delay: -2s;">⚙️</span>
                     <h4><span class="fr">Outils & Méthodes</span><span class="en">Tools & Methods</span></h4>
-                    <div class="badge-group">
-                        <span class="badge">Git</span>
-                        <span class="badge">Linux / Windows</span>
-                        <span class="badge"><span class="fr">Tests Unitaires</span><span class="en">Unit Testing</span></span>
-                        <span class="badge">Scrum</span>
+                    <div class="skill-bars yellow">
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-label"><span>Git</span><span class="skill-bar-percent">90%</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 90%;"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-label"><span>Linux / Windows</span><span class="skill-bar-percent">75%</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 75%;"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-label"><span><span class="fr">Tests Unitaires</span><span class="en">Unit Testing</span></span><span class="skill-bar-percent">65%</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 65%;"></div></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-bar-label"><span>Scrum</span><span class="skill-bar-percent">60%</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width: 60%;"></div></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -753,6 +850,8 @@
         </div>
     </footer>
 
+    <a href="#top" class="scroll-top-btn" id="scrollTopBtn" aria-label="Remonter en haut de la page" title="Remonter en haut">⬆</a>
+
     <script>
         const themeBtn = document.getElementById('theme-toggle');
         const savedTheme = localStorage.getItem('theme');
@@ -843,6 +942,30 @@
                 copyToClipboard(monPseudoDiscord, btn);
             });
         });
+
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        if (scrollTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
+            });
+        }
+
+        const skillBars = document.querySelectorAll('.skill-bar-fill');
+        if (skillBars.length) {
+            const skillObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('filled');
+                        skillObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            skillBars.forEach(bar => skillObserver.observe(bar));
+        }
     </script>
 
 </body>
