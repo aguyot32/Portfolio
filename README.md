@@ -2,7 +2,7 @@
 
 Bienvenue sur le dépôt de mon portfolio ! Ce site vitrine a été conçu et développé de A à Z pour présenter mes compétences, mes projets (académiques et personnels) ainsi que mon parcours en tant que futur professionnel du développement informatique.
 
-**[Voir le portfolio en ligne](https://aguyot32.alwaysdata.net/portfolio/)**
+**[Voir le portfolio en ligne](https://aguyot32.github.io/Portfolio/)**
 
 ---
 
@@ -31,6 +31,8 @@ Ce projet a été l'occasion de mettre en place des solutions techniques moderne
 
 ```text
 portfolio/
+├── Images/                   # Icônes en Pixel Art fait par mes propres soins
+├── CV_Antoine_GUYOT.pdf      # Curriculum Vitae téléchargeable
 ├── index.html
 ├── contact.html
 └── mentions-legales.html
